@@ -1,153 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Global TPA Services | Home</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Global TPA Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e6f2e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .auth-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      color: green;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #007bff;
+      text-align: center;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .link {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <!-- Include header/nav here -->
-  <header>... [same nav bar code here] ...</header>
+  <div class="auth-container" id="login">
+    <h1>Global TPA Services</h1>
+    <h2>Login</h2>
+    <form onsubmit="return loginUser(event)">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="link">
+      <p>Don't have an account? <a href="#signup" onclick="toggleAuth('signup')">Sign up here</a></p>
+    </div>
+  </div>
 
-  <section>
-    <h1>Welcome to Global TPA Services</h1>
-    <p>Integrated Cashless Management with Assistance of All Government Health Schemes and Private Insurance Providers.</p>
-    <p>We support hospitals with cashless processes, medicine and OT material supply, and skilled manpower.</p>
-    <a href="contact.html" style="background:#28a745;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;">Contact Us</a>
-  </section>
+  <div class="auth-container" id="signup" style="display:none;">
+    <h1>Global TPA Services</h1>
+    <h2>Sign Up</h2>
+    <form onsubmit="return signupUser(event)">
+      <input type="text" id="signupName" placeholder="Full Name" required />
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="link">
+      <p>Already have an account? <a href="#login" onclick="toggleAuth('login')">Login here</a></p>
+    </div>
+  </div>
 
-  <footer>© 2025 Global TPA Services. All rights reserved.</footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About | Global TPA Services</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>... [same nav bar code here] ...</header>
+  <script>
+    function toggleAuth(type) {
+      document.getElementById('login').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signup').style.display = type === 'signup' ? 'block' : 'none';
+    }
 
-  <section>
-    <h2>Executive Summary</h2>
-    <p>Global TPA Services is a healthcare management company offering cashless health insurance intimation, medicine supply, OT materials, and manpower support.</p>
+    function signupUser(event) {
+      event.preventDefault();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.find(u => u.email === email)) {
+        alert('Email already registered. Please log in.');
+        return false;
+      }
+      users.push({ name, email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('Signup successful! Please login.');
+      toggleAuth('login');
+      return false;
+    }
 
-    <h2>Our Overview</h2>
-    <h3>Vision</h3>
-    <p>To become a global leader in healthcare management by optimizing hospital operations.</p>
-    <h3>Mission</h3>
-    <p>Deliver value through cost-effective, innovative healthcare solutions.</p>
-    <h3>Core Values</h3>
-    <ul>
-      <li>Integrity and Transparency</li>
-      <li>Quality and Excellence</li>
-      <li>Collaboration and Partnerships</li>
-      <li>Customer-Centric Approach</li>
-    </ul>
-  </section>
-
-  <footer>© 2025 Global TPA Services. All rights reserved.</footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Services | Global TPA Services</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>... [same nav bar code here] ...</header>
-
-  <section>
-    <h2>Our Services</h2>
-    <ul>
-      <li><strong>Cashless Health Insurance Intimation:</strong> Streamlined processes to reduce paperwork and delays.</li>
-      <li><strong>Medicine Supply:</strong> Efficient and cost-controlled medicine delivery systems.</li>
-      <li><strong>OT Materials:</strong> High-quality surgical material supply with on-time delivery.</li>
-      <li><strong>Manpower Services:</strong> Qualified staffing solutions with full credential checks.</li>
-    </ul>
-  </section>
-
-  <footer>© 2025 Global TPA Services. All rights reserved.</footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Market | Global TPA Services</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>... [same nav bar code here] ...</header>
-
-  <section>
-    <h2>Market Analysis</h2>
-    <p>The healthcare sector is growing fast but faces challenges in cost, administration, and skilled workforce availability.</p>
-
-    <h2>Target Audience</h2>
-    <ul>
-      <li>Hospitals of All Sizes</li>
-      <li>Hospital Administrators</li>
-      <li>Medical Professionals</li>
-      <li>Health Insurance Providers</li>
-    </ul>
-  </section>
-
-  <footer>© 2025 Global TPA Services. All rights reserved.</footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Strategy | Global TPA Services</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>... [same nav bar code here] ...</header>
-
-  <section>
-    <h2>Marketing and Sales Strategy</h2>
-    <ul>
-      <li>Build Online Presence and Digital Marketing</li>
-      <li>Attend Healthcare Conferences and Networking Events</li>
-      <li>Direct Sales Team Outreach</li>
-      <li>Referral Programs for Client Growth</li>
-    </ul>
-
-    <h2>Operations & Financials</h2>
-    <ul>
-      <li>Strong IT & Security Infrastructure</li>
-      <li>Vendor Relationships</li>
-      <li>Staff Training & Quality Checks</li>
-      <li>Expense Control and Revenue Forecasting</li>
-    </ul>
-  </section>
-
-  <footer>© 2025 Global TPA Services. All rights reserved.</footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Contact | Global TPA Services</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>... [same nav bar code here] ...</header>
-
-  <section>
-    <h2>Contact Us</h2>
-    <p>For inquiries and partnerships, please use the details below:</p>
-    <p><strong>Email:</strong> contact@globaltpaservices.com</p>
-    <p><strong>Phone / WhatsApp:</strong> +91-XXXXXXXXXX</p>
-    <p><strong>Facebook:</strong> <a href="https://www.facebook.com/yourpage" target="_blank">Visit Our Page</a></p>
-  </section>
-
-  <footer>© 2025 Global TPA Services. All rights reserved.</footer>
+    function loginUser(event) {
+      event.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+      if (user) {
+        alert('Login successful! Welcome, ' + user.name);
+        // Redirect or proceed further
+      } else {
+        alert('Invalid email or password');
+      }
+      return false;
+    }
+  </script>
 </body>
 </html>
